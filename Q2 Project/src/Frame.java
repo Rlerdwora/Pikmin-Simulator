@@ -95,7 +95,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 				Pikmin x = new Pikmin(arg0.getX() - 35, arg0.getY() - 30, "yellow");
 				p.add(x);
 			}else if(itemType == 4) {
-				Mushroom x = new Mushroom(arg0.getX() - 35, arg0.getY() - 30);
+				Mushroom x = new Mushroom(arg0.getX() - 135, arg0.getY() - 130);
 				m.add(x);
 			}
 		}
