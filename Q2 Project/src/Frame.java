@@ -12,18 +12,15 @@ import java.awt.event.MouseListener;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
+import java.util.ArrayList;
 
 public class Frame extends JPanel implements ActionListener, MouseListener, KeyListener {
 	
-	//CREATE THE OBJECT (STEP 1)
-	private Background bg = new Background(0, 0);
-
-
+	Pikmin p = new Pikmin(500,300);
+	
 	public void paint(Graphics g) {
 		super.paintComponent(g);
-		bg.paint(g);
-
-		
+		p.paint(g);
 	}
 	
 	public static void main(String[] arg) {
@@ -31,8 +28,8 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	}
 	
 	public Frame() {
-		JFrame f = new JFrame("Crossy Street");
-		f.setSize(new Dimension(600, 400));
+		JFrame f = new JFrame("Pikmin Simulator");
+		f.setSize(new Dimension(700, 700));
 		f.setBackground(Color.blue);
 		f.add(this);
 		f.setResizable(false);
@@ -43,7 +40,6 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 		t.start();
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.setVisible(true);
-		
 	}
 	
 	@Override
