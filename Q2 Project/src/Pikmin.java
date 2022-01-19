@@ -119,7 +119,7 @@ public class Pikmin {
 		}
 		
 		//attack timer
-		if(attackTimer >= 0 && priority != null) {
+		if(attackTimer >= 0 && priority != null && attacking == true) {
 			if(attackTimer == 0) {
 				attackTimer = 5;
 				priority.damage();
@@ -149,6 +149,7 @@ public class Pikmin {
 			occupied = true;	
 		}else {
 			priority = null;
+			attacking = false;
 		}
 		if(occupied == true) {
 			follow();
