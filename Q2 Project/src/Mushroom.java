@@ -8,31 +8,42 @@ import java.awt.geom.AffineTransform;
 import java.net.URL;
 
 public class Mushroom {
-	private int x, y, xv, yv, flowerTimer, moveTimer, randomTimer, attackTimer, state;
-	private boolean faceLeft, attacking, occupied;
+	private int x, y, health, state;
 	private Image img; 	
 	private AffineTransform tx;
 
 	public Mushroom(int x, int y) {
 		
-		int chance = (int) (Math.random()*2) + 1;
-			
+		this.x = x;
+		this.y = y;
+		state = 1;
+		
+		img = getImage("/imgs/mushroom" + state + ".png");
+		
 		tx = AffineTransform.getTranslateInstance(x, y );
 		init(x, y); 				//initialize the location of the image
 									//use your variables
 	}
 	
+	public int getX() {
+		return x;
+	}
+	
+	public int getY() {
+		return y;
+	}
+	
+	public int getHealth() {
+		return health;
+	}
+	
+	public void damage(int damage) {
+		health -= damage;
+	}
+	
 	public void changePicture(String newFileName) {
 		img = getImage(newFileName);
 		init(x, y);
-	}
-	
-	public void move() {
-		if(occupied == false) {
-			moveTimer = (int) (Math.random()*15) + 1;
-			xv = (int) (Math.random()*11) - 5;
-			xv = (int) (Math.random()*11) - 5;
-		}
 	}
 	
 	public void paint(Graphics g) {
@@ -41,13 +52,15 @@ public class Mushroom {
 
 		//call update to update the actually picture location
 		update();
-		g2.drawImage(img, tx, null);
+		if(state != 5) {
+			g2.drawImage(img, tx, null);
+		}
 	}
 	
 	
 	private void update() {
 		
-		
+		img = getImage("/imgs/mushroom" + state + ".png");
 		
 		tx.setToTranslation(x, y);
 		tx.scale(1	, 1);

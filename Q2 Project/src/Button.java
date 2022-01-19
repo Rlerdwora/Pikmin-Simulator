@@ -7,22 +7,29 @@ import java.awt.event.MouseListener;
 import java.awt.geom.AffineTransform;
 import java.net.URL;
 
-public class Background{
+public class Button{
 	
 	private int x, y;
 	private Image img; 	
 	private AffineTransform tx;
 
-	public Background(int x, int y) {
+	public Button(int x, int y, String type) {
 		this.x = x;
 		this.y = y;
 		
-		img = getImage("/imgs/background.png");
+		img = getImage("/imgs/" + type + "Button.png");
 
 		tx = AffineTransform.getTranslateInstance(x, y );
 		init(x,y);
 	}
 
+	public int getX() {
+		return x;
+	}
+	
+	public int getY() {
+		return y;
+	}
 	
 	/* update variables here */
 	private void update() {
@@ -44,13 +51,13 @@ public class Background{
 	
 	private void init(double a, double b) {
 		tx.setToTranslation(a, b);
-		tx.scale(7, 7);
+		tx.scale(.6, .6);
 	}
 
 	private Image getImage(String path) {
 		Image tempImage = null;
 		try {
-			URL imageURL = Background.class.getResource(path);
+			URL imageURL = Button.class.getResource(path);
 			tempImage = Toolkit.getDefaultToolkit().getImage(imageURL);
 		} catch (Exception e) {
 			e.printStackTrace();
