@@ -24,7 +24,7 @@ public class Pikmin {
 		priority = null;
 		occupied = false;
 		attacking = false;
-		flowerTimer = 600;
+		flowerTimer = 1000;
 		
 		this.color = color;
 		head = "Leaf";
@@ -50,10 +50,15 @@ public class Pikmin {
 	}
 	
 	public void setPriority(Mushroom x) {
-		if(priority == null) {
-			priority = x;
-		}else {
-			//if statement that compares the averages of distance away from the pikmin and the shorter one is set to priority
+		if(occupied == false) {
+			if(priority == null) {
+				priority = x;
+			}else {
+				if(Math.abs(priority.getX() + 120 - this.x) + Math.abs(priority.getY() + 130 - y) >
+				   Math.abs(x.getX() + 120 - this.x) + Math.abs(x.getY() + 130 - y)) {
+					priority = x;
+				}
+			}
 		}
 	}
 	
@@ -67,15 +72,15 @@ public class Pikmin {
 	
 	public void follow() {
 		if(priority != null && attacking == false) {
-			if(priority.getX() + 70 > this.x) {
-				xv = 1;
+			if(priority.getX() + 60 > this.x) {
+				xv = 2;
 			}else if(priority.getX() + 100 < this.x) {
-				xv = -1;
+				xv = -2;
 			}
 			if(priority.getY() + 100 > this.y) {
-				yv = 1;
-			}else if(priority.getY() + 100 < this.y) {
-				yv = -1;
+				yv = 2;
+			}else if(priority.getY() + 99 < this.y) {
+				yv = -2;
 			}
 		}
 	}
@@ -119,7 +124,7 @@ public class Pikmin {
 		}
 		
 		//attack timer
-		if(attackTimer >= 0 && priority != null) {
+		if(attackTimer >= 0 && priority != null && attacking == true) {
 			if(attackTimer == 0) {
 				attackTimer = 5;
 				priority.damage();
@@ -149,16 +154,21 @@ public class Pikmin {
 			occupied = true;	
 		}else {
 			priority = null;
+			occupied = false;
+			attacking = false;
 		}
 		if(occupied == true) {
 			follow();
 		}
 		
 		if(priority != null) {
-			if(priority.getX() + 70 <= this.x && priority.getX() + 90 >= this.x && priority.getY() + 100 <= this.y && priority.getY() + 100 >= this.y) {
+			if(priority.getX() + 60 <= this.x && priority.getX() + 90 >= this.x && priority.getY() + 99 <= this.y && priority.getY() + 100 >= this.y) {
 				attacking = true;
+			}else {
+				attacking = false;
 			}
 		}
+		
 		if(attacking == true) {
 			xv = 0;
 			yv = 0;
@@ -166,7 +176,7 @@ public class Pikmin {
 		
 		if(flowerTimer >= 0) {
 			flowerTimer --;
-			if(flowerTimer == 300){
+			if(flowerTimer == 500){
 				head = "Bud";
 			}
 			if(flowerTimer == 0) {

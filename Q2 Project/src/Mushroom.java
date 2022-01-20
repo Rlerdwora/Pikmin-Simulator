@@ -20,7 +20,7 @@ public class Mushroom {
 		this.y = y;
 		state = 1;
 		temp = state;
-		health = 100;
+		health = 500;
 		
 		img = getImage("/imgs/mushroom" + state + ".png");
 		
@@ -62,7 +62,7 @@ public class Mushroom {
 		for(MushroomParticle x : m) {
 			x.paint(g);
 		}
-		g.drawRect(x + 47, y + 60, 151, 140);
+		g.drawRect(x + 120, y + 130, 1, 1);
 	}
 	
 	
@@ -70,21 +70,22 @@ public class Mushroom {
 		
 		img = getImage("/imgs/mushroom" + state + ".png");
 		
-		if(health <= 100 && health >= 75) {
-			state = 1;
-		}else if(health < 75 && health >= 50) {
-			state = 2;
-		}else if(health < 50 && health >= 25) {
-			state = 3;
-		}else {
-			state = 4;
-		}
 		if(temp != state) {
 			temp = state;
 			for(int i = 0; i < 5; i ++) {
-				MushroomParticle mp = new MushroomParticle(x,y);
+				MushroomParticle mp = new MushroomParticle(x + 110, y + 10);
 				m.add(mp);
 			}
+		}
+		
+		if(health <= 500 && health >= 375) {
+			state = 1;
+		}else if(health < 375 && health >= 250) {
+			state = 2;
+		}else if(health < 250 && health >= 125) {
+			state = 3;
+		}else {
+			state = 4;
 		}
 		
 		tx.setToTranslation(x, y);
