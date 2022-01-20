@@ -50,14 +50,12 @@ public class Pikmin {
 	}
 	
 	public void setPriority(Mushroom x) {
-		if(occupied == false) {
-			if(priority == null) {
+		if(priority == null) {
+			priority = x;
+		}else{
+			if(Math.abs(priority.getX() + 120 - this.x) + Math.abs(priority.getY() + 130 - y) >
+			   Math.abs(x.getX() + 120 - this.x) + Math.abs(x.getY() + 130 - y)) {
 				priority = x;
-			}else {
-				if(Math.abs(priority.getX() + 120 - this.x) + Math.abs(priority.getY() + 130 - y) >
-				   Math.abs(x.getX() + 120 - this.x) + Math.abs(x.getY() + 130 - y)) {
-					priority = x;
-				}
 			}
 		}
 	}
@@ -152,16 +150,17 @@ public class Pikmin {
 		
 		if(priority != null && priority.getHealth() > 0) {
 			occupied = true;	
-		}else {
+		}else{
 			priority = null;
 			occupied = false;
 			attacking = false;
 		}
+		
 		if(occupied == true) {
 			follow();
 		}
 		
-		if(priority != null) {
+		if(priority != null && occupied == true) {
 			if(priority.getX() + 60 <= this.x && priority.getX() + 90 >= this.x && priority.getY() + 99 <= this.y && priority.getY() + 100 >= this.y) {
 				attacking = true;
 			}else {
